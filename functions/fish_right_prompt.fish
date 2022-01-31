@@ -73,9 +73,22 @@ function prompt_vi_mode -d 'vi mode status indicator'
     end
 end
 
+function rigth_prompt_virtual_env -d 'Display virtual environments to the right'
+  set -l right_segment_separator \uE0B2
+  if [ "$VIRTUAL_ENV" -o "$IN_NIX_SHELL" ]
+	set_color $color_virtual_env_bg
+	echo -n "$right_segment_separator"
+    prompt_virtual_env
+    set_color normal
+  end
+end
+
 function fish_right_prompt -d 'Prints right prompt'
   if test "$fish_key_bindings" = "fish_vi_key_bindings"
     prompt_vi_mode
     set_color normal
   end
+  rigth_prompt_virtual_env
+  # reset color to avoid side effects on new lines
+  set -g current_bg NONE
 end

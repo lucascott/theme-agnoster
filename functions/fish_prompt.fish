@@ -147,7 +147,7 @@ function prompt_virtual_env -d "Display Python or Nix virtual environment"
 
   if test "$VIRTUAL_ENV"
     set py_env (basename $VIRTUAL_ENV)
-    set envs $envs "py[$py_env]"
+    set envs $envs "$py_env"
   end
 
   if test "$IN_NIX_SHELL"
@@ -297,7 +297,8 @@ end
 function fish_prompt
   set -g RETVAL $status
   prompt_status
-  prompt_virtual_env
+  # disabled venv as it is displayed on the right
+  # prompt_virtual_env
   prompt_user
   prompt_dir
   if [ (cwd_in_scm_blacklist | wc -c) -eq 0 ]
